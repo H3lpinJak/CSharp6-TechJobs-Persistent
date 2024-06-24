@@ -17,7 +17,7 @@ namespace TechJobs6Persistent.Data
             : base(options)
         {
         }
-
+    // You will need to add the services required to create your database connection, including both the connectionString and the serverVersion
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //set up your connection for one to many (employer to jobs)

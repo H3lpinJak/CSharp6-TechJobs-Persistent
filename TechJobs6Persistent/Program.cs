@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TechJobs6Persistent.Data;
+using Pomelo.EntityFrameworkCore.MySql;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.Relational;
 
 var builder = WebApplication.CreateBuilder(args);
 
