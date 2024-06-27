@@ -14,7 +14,7 @@ namespace TechJobs6Persistent.Controllers
 {
     public class JobController : Controller
     {
-        private JobDbContext context;
+        private readonly JobDbContext context;
 
         public JobController(JobDbContext dbContext)
         {
@@ -53,7 +53,10 @@ namespace TechJobs6Persistent.Controllers
             foreach (int jobId in jobIds)
             {
                 Job theJob = context.Jobs.Find(jobId);
-                context.Jobs.Remove(theJob);
+                if (theJob != null)
+                {
+                    context.Jobs.Remove(theJob);
+                }
             }
 
             context.SaveChanges();
@@ -63,7 +66,10 @@ namespace TechJobs6Persistent.Controllers
 
         public IActionResult Detail(int id)
         {
-            Job theJob = context.Jobs.Include(j => j.Employer).Include(j => j.Skills).Single(j => j.Id == id);
+            Job theJob = context.Jobs
+            .Include(j => j.Employer)
+            .Include(j => j.Skills)
+            .Single(j => j.Id == id);
 
             JobDetailViewModel jobDetailViewModel = new JobDetailViewModel(theJob);
 

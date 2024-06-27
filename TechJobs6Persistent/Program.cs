@@ -1,13 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TechJobs6Persistent.Data;
-using Pomelo.EntityFrameworkCore.MySql;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.EntityFrameworkCore.Relational;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<JobDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+    sqlServerOptions => sqlServerOptions.MigrationsAssembly(typeof(Program).Assembly.FullName));
+}); 
 
 var app = builder.Build();
 
