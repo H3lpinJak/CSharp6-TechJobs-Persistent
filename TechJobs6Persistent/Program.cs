@@ -1,18 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TechJobs6Persistent.Data;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TechJobs6Persistent.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+
+   var connectionString = "server=localhost;user=techjobs;password=TechJobs;database=techjobs";
+   var serverVersion = new MySqlServerVersion(new Version(8,0,36));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<JobDbContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-    sqlServerOptions => sqlServerOptions.MigrationsAssembly(typeof(Program).Assembly.FullName));
-}); 
+builder.Services.AddDbContext<JobDbContext>(dbContextOptions =>
+    dbContextOptions.UseMySql(connectionString, serverVersion)
+);
 
 var app = builder.Build();
 
@@ -31,9 +32,6 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Job}/{action=Index}/{id?}");
+app.MapControllerRoute(name: "default", pattern: "{controller=Job}/{action=Index}/{id?}");
 
 app.Run();
-
