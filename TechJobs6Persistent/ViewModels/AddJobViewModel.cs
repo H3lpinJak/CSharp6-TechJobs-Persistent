@@ -12,9 +12,23 @@ public class AddJobViewModel
     public int EmployerId { get; set; }
     public List<SelectListItem> Employers { get; set; }
 
-    public AddJobViewModel()
-    {
-        Employers = new List<SelectListItem>();
-    }
+    public AddJobViewModel(List<Employer> employerList)
+        {
+            Employers = new List<SelectListItem>();
 
+            foreach (Employer employers in employerList)
+            {
+                Employers.Add(
+                    new SelectListItem
+                    {
+                        Value = employers.Id.ToString(),
+                        Text = employers.Name
+                    }
+                ); 
+            }
+        }
+            public AddJobViewModel()
+            {
+            }
+        
 }

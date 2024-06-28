@@ -44,7 +44,8 @@ namespace TechJobs6Persistent.Controllers
             {
                 Employer newEmployer = new Employer
                 {
-                    Name = addEmployerViewModel.Name
+                    Name = addEmployerViewModel.Name,
+                    Location = addEmployerViewModel.Location
                 };
 
                 context.Employers.Add(newEmployer);
