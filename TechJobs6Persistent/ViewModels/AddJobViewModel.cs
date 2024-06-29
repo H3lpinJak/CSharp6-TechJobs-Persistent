@@ -6,29 +6,26 @@ namespace TechJobs6Persistent.ViewModels;
 
 public class AddJobViewModel
 {
-    [Required(ErrorMessage = "Where dat Job Name at?")]
-    public string Name { get; set;}
-    [Required(ErrorMessage = "Where's dat EmployerId")]
+    [Required(ErrorMessage = "Where dat Job name at?")]
+    public string Name { get; set; }
+
+    [Required(ErrorMessage = "Where's dat EmployerId?")]
     public int EmployerId { get; set; }
-    public List<SelectListItem> Employers { get; set; }
+    public List<SelectListItem>? Employers { get; set; }
+
+    public AddJobViewModel() { }
 
     public AddJobViewModel(List<Employer> employerList)
-        {
-            Employers = new List<SelectListItem>();
+    {
+        Employers = new List<SelectListItem>();
 
-            foreach (Employer employers in employerList)
-            {
-                Employers.Add(
-                    new SelectListItem
-                    {
-                        Value = employers.Id.ToString(),
-                        Text = employers.Name
-                    }
-                ); 
-            }
+        foreach (Employer employers in employerList)
+        {
+            Employers.Add(
+                new SelectListItem 
+                { 
+                    Value = employers.Id.ToString(), Text = employers.Name 
+                });
         }
-            public AddJobViewModel()
-            {
-            }
-        
+    }
 }
